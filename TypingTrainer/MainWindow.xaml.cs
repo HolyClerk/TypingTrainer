@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.Windows.Threading;
 using TypingTrainer.Classes;
 
 namespace TypingTrainer
@@ -25,7 +25,15 @@ namespace TypingTrainer
         private const int INITIAL_START_POS = 0;
         private const int INITIAL_LENGTH = 1;
 
-        private bool _isTypingStarted = false;
+        private const int BRUSH_LEFT = 114;
+        private const int BRUSH_TOP = 93;
+        private const int STEPSIZE = 10;
+
+        private int _ticks = 0;
+        private int _hits = 0;
+        private int _misses = 0;    
+
+        private DispatcherTimer timer;
 
         public MainWindow()
         {
@@ -33,6 +41,17 @@ namespace TypingTrainer
             FillInputTextBox();
 
             SelectedStart = INITIAL_START_POS;
+
+            timer = new DispatcherTimer();
+            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.Tick += (object? sender, EventArgs e) =>
+            {
+                _ticks++;
+
+                float result = (_hits + _misses) / _ticks;
+
+                spdtypBlock.Text = $"{result * 60} KPM";
+            };
         }
 
         public int SelectedStart { get; set; }
@@ -43,36 +62,10 @@ namespace TypingTrainer
             TrainerWindow.DragMove();
         }
 
-        private void StartButton_Click(object sender, RoutedEventArgs e)
+        //
+        private void TrainerWindow_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            inputTextBox.Focus();
-            inputTextBox.Select(INITIAL_START_POS, INITIAL_LENGTH);
-
-            SelectedStart = INITIAL_START_POS;
-
-            _isTypingStarted = true;
-        }
-
-        private void StopButton_Click(object sender, RoutedEventArgs e)
-        {
-            _isTypingStarted = false;
-        }
-
-        // "Перехват" нажатых кнопок, иначе действует вложенная логика, сбивающая фокус.
-        private void TrainerWindow_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (!_isTypingStarted)
-            {
-                e.Handled = true;
-                return;
-            }
-
-            inputTextBox.Focus();
-        }
-
-        private void inputTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (!_isTypingStarted)
+            if (!timer.IsEnabled)
             {
                 e.Handled = true;
                 return;
@@ -80,13 +73,17 @@ namespace TypingTrainer
 
             if (e.Text == inputTextBox.SelectedText)
             {
-                inputTextBox.Select(SelectedStart++, INITIAL_LENGTH);
+                OnUserSuccess();
+            }
+            else
+            {
+                OnUserMisstake();
             }
         }
 
-        private void inputTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void TrainerWindow_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (!_isTypingStarted)
+            if (!timer.IsEnabled)
             {
                 e.Handled = true;
                 return;
@@ -94,8 +91,24 @@ namespace TypingTrainer
 
             if ((e.Key == Key.Space) && inputTextBox.SelectedText == " ")
             {
-                inputTextBox.Select(SelectedStart++, INITIAL_LENGTH);
+                OnUserSuccess();
             }
+        }
+        //
+
+        private void StartButton_Click(object sender, RoutedEventArgs e)
+        {
+            inputTextBox.Focus();
+            inputTextBox.Select(INITIAL_START_POS, INITIAL_LENGTH);
+
+            SelectedStart = INITIAL_START_POS;
+
+            timer.Start();
+        }
+
+        private void StopButton_Click(object sender, RoutedEventArgs e)
+        {
+            timer.Stop();
         }
 
         private void NewTextButton_Click(object sender, RoutedEventArgs e)
@@ -105,9 +118,22 @@ namespace TypingTrainer
 
         private void FillInputTextBox()
         {
-            var text = new Text();
-            text = new GeneratedText().GenerateNewText();
+            Text text = new GeneratedText().GetNewGeneratedText(Difficulty.Insane);
             inputTextBox.Text = text.Value;
+        }
+
+        private void OnUserMisstake()
+        {
+            inputTextBox.SelectionBrush = new SolidColorBrush(Color.FromRgb(250, 76, 61));
+            _misses++;
+        }
+
+        private void OnUserSuccess()
+        {
+            inputTextBox.Select(++SelectedStart, INITIAL_LENGTH);
+            inputTextBox.SelectionBrush = new SolidColorBrush(Color.FromRgb(66, 214, 45));
+
+            _hits++;
         }
     }
 }

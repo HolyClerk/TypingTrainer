@@ -39,14 +39,19 @@ internal sealed class GeneratedText
         return text;
     }
 
-    public Text GenerateNewText()
+    public Text GetNewGeneratedText()
     {
         return GenerateText(s_DefaultDif);
     }
 
-    public Text GenerateNewText(Difficulty difficulty)
+    public Text GetNewGeneratedText(Difficulty difficulty)
     {
         return GenerateText(difficulty);
+    }
+
+    public Text GetActualText()
+    {
+        return _savedText;
     }
 
     public override string ToString()

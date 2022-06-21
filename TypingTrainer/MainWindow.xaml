@@ -9,36 +9,38 @@
         Height="600" Width="1000" MinHeight="600" MaxHeight="600" MinWidth="1000" MaxWidth="1000"
         WindowStyle="None" 
         HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
-        PreviewKeyDown="TrainerWindow_KeyDown">
+        PreviewKeyDown="TrainerWindow_PreviewKeyDown" PreviewTextInput="TrainerWindow_PreviewTextInput" Foreground="White" >
     <Grid>
-        <Grid x:Name="HeaderGrid" Margin="0,0,0,422" Background="#FFD0DBFD" MouseDown="HeaderGrid_MouseDown">
-            <Label HorizontalAlignment="Center" VerticalAlignment="Top">Тренажёр печати на клавиатуре</Label>
+        <Grid x:Name="HeaderGrid" Margin="0,0,0,422" Background="#FFADBFF9" MouseDown="HeaderGrid_MouseDown">
+            <Label HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontWeight="Thin">Тренажёр печати на клавиатуре</Label>
         </Grid>
 
-        <Grid x:Name="MainGrid" Margin="0,28,0,28" Background="#FFB3BDDE">
-            <TextBox x:Name="inputTextBox" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Text for checking the trainer in test mode" 
-                     VerticalAlignment="Center" Width="780" Height="366" Background="#FF8F9AC1"
-                     HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Cursor="SizeNS" 
-                     FontStretch="Medium" FontSize="16" FontFamily="Bahnschrift SemiCondensed" FontWeight="Bold" 
-                     IsReadOnly="True" BorderBrush="#FFB3BDDE" 
-                     PreviewTextInput="inputTextBox_PreviewTextInput" PreviewKeyDown="inputTextBox_PreviewKeyDown"
-            >
+        <Grid x:Name="MainGrid" Margin="0,28,0,28" Background="#FF9CAFEA">
+            <TextBox x:Name="inputTextBox" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Какой-то текст для проверки" 
+                     VerticalAlignment="Center" Width="780" Height="366" Background="#FFD4DDFF"
+                     HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Cursor="Arrow" 
+                     FontStretch="Medium" FontSize="16" FontFamily="Lucida Sans Typewriter" FontWeight="Thin" 
+                     IsReadOnly="True" BorderBrush="#FFB3BDDE" SelectionBrush="LightYellow" IsInactiveSelectionHighlightEnabled="False"
+                      TextDecorations="{x:Null}">
             </TextBox>
 
             <Button x:Name="Start"
                 Content="Начать" HorizontalAlignment="Left" Margin="110,460,0,0" VerticalAlignment="Top" 
                     RenderTransformOrigin="0.047,-0.405" Height="45" Width="130" BorderBrush="#FFBAE4C0" 
-                    Background="#FFBAE4C0" 
-                    Click="StartButton_Click">
+                    Background="#FFA1D4A8" 
+                    Click="StartButton_Click" Foreground="White">
             </Button>
 
-            <Button x:Name="Stop" Content="Стоп" HorizontalAlignment="Left" Margin="245,460,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.047,-0.405" Height="45" Width="130" Background="#FFEDB2B2" BorderBrush="#FFEDB2B2" Click="StopButton_Click"/>
+            <Button x:Name="Stop" Content="Стоп" HorizontalAlignment="Left" Margin="245,460,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.047,-0.405" Height="45" Width="130" Background="#FFFFABAB" BorderBrush="#FFEDB2B2" Click="StopButton_Click" Foreground="White"/>
 
-            <Button x:Name="NewTextButton" Content="Новый текст" Click="NewTextButton_Click" HorizontalAlignment="Left" Margin="760,460,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.047,-0.405" Height="45" Width="130" Background="#FFB2E1ED" BorderBrush="#FFB2E1ED"/>
+            <Button x:Name="NewTextButton" Content="Новый текст" Click="NewTextButton_Click" HorizontalAlignment="Left" Margin="760,460,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.047,-0.405" Height="45" Width="130" Background="#FF8AE7FF" BorderBrush="#FFB2E1ED" Foreground="White"/>
+            <TextBlock x:Name="spdtypBlock" HorizontalAlignment="Left" Margin="921,105,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontWeight="Thin"/>
+            <TextBlock HorizontalAlignment="Left" Margin="895,89,0,0" TextWrapping="Wrap" Text="Скорость нажатий:" VerticalAlignment="Top" FontWeight="Thin"/>
+
         </Grid>
 
-        <Grid x:Name="FooterGrid" Margin="0,572,0,0" Background="#FFD0DBFD">
-            <Label HorizontalAlignment="Right" VerticalAlignment="Center">ООО "Нихуя"</Label>
+        <Grid x:Name="FooterGrid" Margin="0,572,0,0" Background="#FFADBFF9">
+            <Label HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="White">ООО "Нихуя"</Label>
         </Grid>
     </Grid>
 </Window>
