@@ -10,7 +10,7 @@ internal struct Text
 {
     public Difficulty Diff { get; set; }
      
-    public string? Value { get; set; }
+    public string Value { get; set; }
 
     public int Length { get; set; }
 }

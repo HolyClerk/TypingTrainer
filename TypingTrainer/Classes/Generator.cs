@@ -6,46 +6,56 @@ using System.Threading.Tasks;
 
 namespace TypingTrainer.Classes;
 
-internal sealed class Generator
+internal sealed class GeneratedText
 {
     private static Difficulty s_DefaultDif = Difficulty.Normal;
 
-    private Text _bufferText;
+    private Text _savedText;
 
-    public Generator() { }
+    public GeneratedText() { }
 
-    public Generator(Difficulty difficulty) => s_DefaultDif = difficulty;
-
-    private async void CreateRandomTextAsync(Difficulty difficulty)
+    public GeneratedText(Difficulty difficulty)
     {
-        await Task.Run(() =>
+        s_DefaultDif = difficulty;
+    }
+
+    private Text GenerateText(Difficulty difficulty)
+    {
+        var bufferText = "Современные компании часто делают ставку на комплексное продвижение: " +
+        "размещают рекламу на офлайн и онлайн носителях, привлекают ТВ и радио, " +
+        "публикуют посты в блоге и соцсетях. Это правильный и логичный подход, который однако требует больших финансовых вложений. " +
+        "Стартапы с ограниченным бюджетом не способны на такой масштабный охват и зачастую сосредотачиваются только на интернет-продвижении. " +
+        "На фоне многих вариантов рекламы они останавливаются именно на наполнении сайта полезным контентом.";
+
+        var text = new Text()
         {
-            var random = new Random();
-            var buffer = "Какой-то текст для проверки.";
+            Diff = difficulty,
+            Value = bufferText,
+            Length = bufferText.Length
+        };
 
-            // Логика рандомизации.
+        _savedText = text;
 
-            _bufferText = new Text()
-            {
-                Value = buffer,
-                Diff = difficulty,
-                Length = buffer.Length
-            };
-        });
+        return text;
     }
 
-    public Text GenerateTextAsync()
+    public Text GenerateNewText()
     {
-        CreateRandomTextAsync(s_DefaultDif);
-
-        return _bufferText;
+        return GenerateText(s_DefaultDif);
     }
 
-    public Text GenerateTextAsync(Difficulty difficulty)
+    public Text GenerateNewText(Difficulty difficulty)
     {
-        CreateRandomTextAsync(difficulty);
+        return GenerateText(difficulty);
+    }
 
-        return _bufferText;
+    public override string ToString()
+    {
+        if (string.IsNullOrEmpty(_savedText.Value))
+        {
+            _savedText = GenerateText(s_DefaultDif);
+        }
+
+        return _savedText.Value;
     }
 }
-

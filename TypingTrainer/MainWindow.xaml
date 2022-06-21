@@ -1,23 +1,44 @@
-﻿<Window x:Class="TypingTrainer.MainWindow"
+﻿<Window x:Name="TrainerWindow" x:Class="TypingTrainer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TypingTrainer"
+        xmlns:local="clr-namespace:TypingTrainer" xmlns:interactivity="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" 
+        Height="600" Width="1000" MinHeight="600" MaxHeight="600" MinWidth="1000" MaxWidth="1000"
+        WindowStyle="None" 
+        HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+        PreviewKeyDown="TrainerWindow_KeyDown">
     <Grid>
-        <Grid x:Name="HeaderGrid" Margin="0,0,0,406">
+        <Grid x:Name="HeaderGrid" Margin="0,0,0,422" Background="#FFD0DBFD" MouseDown="HeaderGrid_MouseDown">
             <Label HorizontalAlignment="Center" VerticalAlignment="Top">Тренажёр печати на клавиатуре</Label>
         </Grid>
 
-        <Grid x:Name="MainGrid" Margin="0,28,0,28">
-            <TextBox HorizontalAlignment="Center" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="572" Height="221"/>
+        <Grid x:Name="MainGrid" Margin="0,28,0,28" Background="#FFB3BDDE">
+            <TextBox x:Name="inputTextBox" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Text for checking the trainer in test mode" 
+                     VerticalAlignment="Center" Width="780" Height="366" Background="#FF8F9AC1"
+                     HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Cursor="SizeNS" 
+                     FontStretch="Medium" FontSize="16" FontFamily="Bahnschrift SemiCondensed" FontWeight="Bold" 
+                     IsReadOnly="True" BorderBrush="#FFB3BDDE" 
+                     PreviewTextInput="inputTextBox_PreviewTextInput" PreviewKeyDown="inputTextBox_PreviewKeyDown"
+            >
+            </TextBox>
 
+            <Button x:Name="Start"
+                Content="Начать" HorizontalAlignment="Left" Margin="110,460,0,0" VerticalAlignment="Top" 
+                    RenderTransformOrigin="0.047,-0.405" Height="45" Width="130" BorderBrush="#FFBAE4C0" 
+                    Background="#FFBAE4C0" 
+                    Click="StartButton_Click">
+            </Button>
+
+            <Button x:Name="Stop" Content="Стоп" HorizontalAlignment="Left" Margin="245,460,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.047,-0.405" Height="45" Width="130" Background="#FFEDB2B2" BorderBrush="#FFEDB2B2" Click="StopButton_Click"/>
+
+            <Button x:Name="NewTextButton" Content="Новый текст" Click="NewTextButton_Click" HorizontalAlignment="Left" Margin="760,460,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.047,-0.405" Height="45" Width="130" Background="#FFB2E1ED" BorderBrush="#FFB2E1ED"/>
         </Grid>
 
-        <Grid x:Name="FooterGrid" Margin="0,406,0,0">
-
+        <Grid x:Name="FooterGrid" Margin="0,572,0,0" Background="#FFD0DBFD">
+            <Label HorizontalAlignment="Right" VerticalAlignment="Center">ООО "Нихуя"</Label>
         </Grid>
     </Grid>
 </Window>
