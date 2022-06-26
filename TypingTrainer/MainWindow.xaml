@@ -11,7 +11,7 @@
         HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
         PreviewKeyDown="TrainerWindow_PreviewKeyDown" PreviewTextInput="TrainerWindow_PreviewTextInput" Foreground="White" >
     <Grid>
-        <Grid x:Name="HeaderGrid" Margin="0,0,0,422" Background="#FFADBFF9" MouseDown="HeaderGrid_MouseDown">
+        <Grid x:Name="HeaderGrid" Margin="0,0,0,572" Background="#FFADBFF9" MouseDown="HeaderGrid_MouseDown">
             <Label HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontWeight="Thin">Тренажёр печати на клавиатуре</Label>
         </Grid>
 

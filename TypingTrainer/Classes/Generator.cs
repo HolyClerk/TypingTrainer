@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,8 @@ namespace TypingTrainer.Classes;
 
 internal sealed class GeneratedText
 {
+    private static string s_textsPath = @"C:\Users\PHPpr\Documents\Dev\TypingTrainer\TypingTrainer\Samples\";
+
     private static Difficulty s_DefaultDif = Difficulty.Normal;
 
     private Text _savedText;
@@ -21,11 +24,9 @@ internal sealed class GeneratedText
 
     private Text GenerateText(Difficulty difficulty)
     {
-        var bufferText = "Современные компании часто делают ставку на комплексное продвижение: " +
-        "размещают рекламу на офлайн и онлайн носителях, привлекают ТВ и радио, " +
-        "публикуют посты в блоге и соцсетях. Это правильный и логичный подход, который однако требует больших финансовых вложений. " +
-        "Стартапы с ограниченным бюджетом не способны на такой масштабный охват и зачастую сосредотачиваются только на интернет-продвижении. " +
-        "На фоне многих вариантов рекламы они останавливаются именно на наполнении сайта полезным контентом.";
+        var randNum = new Random().Next(0, 2);
+        
+        var bufferText = File.ReadAllText($"{s_textsPath}text_{randNum}.txt");
 
         var text = new Text()
         {

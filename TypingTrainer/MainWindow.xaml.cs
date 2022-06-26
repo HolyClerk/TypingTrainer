@@ -31,7 +31,7 @@ namespace TypingTrainer
 
         private int _ticks = 0;
         private int _hits = 0;
-        private int _misses = 0;    
+        private int _misses = 0;
 
         private DispatcherTimer timer;
 
@@ -56,7 +56,6 @@ namespace TypingTrainer
 
         public int SelectedStart { get; set; }
 
-        // Движение окна
         private void HeaderGrid_MouseDown(object sender, MouseButtonEventArgs e)
         {
             TrainerWindow.DragMove();
